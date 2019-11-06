@@ -30,7 +30,29 @@ function wpgraphql_cors_filter_cookies() {
  * @return array
  */
 function wpgraphql_cors_response_headers( $headers ) {
-	$headers['Access-Control-Allow-Origin'] = get_option( 'wpgraphql_router_access_control_allow_origin', '*' );
+	$possible_origins = array();
+
+	// Get site address as possible origin.
+	if ( ! empty( get_option( 'wpgraphql_acao_use_site_address' ) ) ) {
+		$site_address = get_option( 'home' );
+		if ( ! empty( $site_address ) ) {
+			$possible_origins[] = $site_address;
+		}
+	}
+
+	// Add all other possible origins.
+	$acao = get_option( 'wpgraphql_acao', '*' );
+	if ( '*' !== $acao ) {
+		$possible_origins = array_merge(
+			$possible_origins,
+			array_map( 'trim', explode( ',', $acao ) )
+		);
+	}
+
+	if ( in_array( get_http_origin(), $possible_origins, true ) ) {
+		$headers['Access-Control-Allow-Origin'] = get_http_origin();
+	}
+
 	if ( ! empty( $headers['Access-Control-Allow-Origin'] ) && '*' !== $headers['Access-Control-Allow-Origin'] ) {
 		$headers['Access-Control-Allow-Credentials'] = 'true';
 	}

@@ -12,30 +12,17 @@ Allows user to customize WPGraphQL request CORS Headers and response cookie head
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
-
-A few notes about the sections above:
-
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
-
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
-
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
+WPGraphQL CORS comes with a few options that can be changed from the **WPGraphQL CORS** settings
+page under the **Settings** menu on the WordPress dashboard. These settings and the usage are as follows.
+- `Access-Control-Allow-Origin`: The option allows the user to set allowed domain that can access the GraphQL
+server as well as any credentials such as cookies that the current user may have on the WordPress installation.
+- `Include site address in Access-Control-Allow-Origin`: This will cause the `Site Address` to be included in
+`Access-Control-Allow-Origin`
+- `Filter WPGraphQL response cookies`: Using regular expression specific cookies can be targeted for inclusion
+in the GraphQL request.
+- `Add logout mutation for destroying user session`: Will add a `logout` mutation to the GraphQL schema that can
+be used to destroy the user session and credentials.
+- `GraphQL endpoint`: Allows the user to change the name of the GraphQL endpoint.
 
 == Installation ==
 
