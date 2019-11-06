@@ -24,17 +24,22 @@ class Main extends Section {
 	 */
 	public function __construct() {
 		$this->settings = array(
-			'wpgraphql_router_access_control_allow_origin' => array(
+			'wpgraphql_acao'                  => array(
 				'type'        => 'String',
 				'description' => __( 'Access-Control-Allow-Origin', 'wp-graphql-cors' ),
 				'default'     => '*',
 			),
-			'wpgraphql_cookie_filter'                      => array(
+			'wpgraphql_acao_use_site_address' => array(
+				'type'        => 'Boolean',
+				'description' => __( 'Include site address in Access-Control-Allow-Origin', 'wp-graphql-cors' ),
+				'default'     => true,
+			),
+			'wpgraphql_cookie_filter'         => array(
 				'type'        => 'String',
 				'description' => __( 'Filter WPGraphQL response cookies', 'wp-graphql-cors' ),
 				'default'     => '',
 			),
-			'wpgraphql_logout_mutation'                    => array(
+			'wpgraphql_logout_mutation'       => array(
 				'type'        => 'Boolean',
 				'description' => __( 'Add logout mutation for destroying user session', 'wp-graphql-cors' ),
 				'default'     => false,
@@ -53,7 +58,7 @@ class Main extends Section {
 	 */
 	protected function add_section() {
 		add_settings_section(
-			'wpgraphql_router_settings_section',
+			'wpgraphql_main_settings_section',
 			__( 'General', 'wp-graphql-cors' ),
 			array( __CLASS__, 'section_callback' ),
 			'wpgraphql_cors'
@@ -87,7 +92,7 @@ class Main extends Section {
 					! empty( $args['description'] ) ? $args['description'] : '',
 					array( __CLASS__, $name ),
 					'wpgraphql_cors',
-					'wpgraphql_router_settings_section',
+					'wpgraphql_main_settings_section',
 					$args
 				);
 			} else {
@@ -96,7 +101,7 @@ class Main extends Section {
 					$args,
 					array( __CLASS__, $name ),
 					'wpgraphql_cors',
-					'wpgraphql_router_settings_section'
+					'wpgraphql_main_settings_section'
 				);
 			}
 		}

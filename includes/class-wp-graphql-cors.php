@@ -67,7 +67,7 @@ class WP_GraphQL_CORS {
 	private function actions() {
 		add_action( 'admin_init', 'wpgraphql_cors_admin_page_init' );
 		add_action( 'admin_menu', 'wpgraphql_cors_admin_menu' );
-		add_action( 'graphql_process_http_request_response', 'wpgraphql_cors_cookie_filter', 10 );
+		add_action( 'graphql_process_http_request_response', 'wpgraphql_cors_filter_cookies', 10 );
 		add_action( 'graphql_register_types', 'wpgraphql_cors_logout_mutation' );
 	}
 
