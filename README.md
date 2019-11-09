@@ -1,4 +1,4 @@
-# WPGraphQL CORS
+# WP GraphQL CORS
 
 The primary purpose of this plugin is to make the [WP GraphQL](https://github.com/wp-graphql/wp-graphql) plugin authentication "just work". It does this by allowing you set the CORS headers GraphQL will accept, which means that WordPress's default authentication headers will be accepted.
 
@@ -27,8 +27,8 @@ If enabled in the settings, WP GraphQL will have a new mutation available to all
 
 ```
 mutation {
-	logout(clientMutationId){
-		clientMutationId
-	}
+    logout(clientMutationId){
+        clientMutationId
+    }
 }
 ```
