@@ -6,7 +6,7 @@ This means that if a user is logged into WordPress, they will be able to see thi
 
 ## Installation
 
-1.  Requires [WP GraphQL])https://github.com/wp-graphql/wp-graphql)
+1.  Requires [WP GraphQL](https://github.com/wp-graphql/wp-graphql)
 1.  Install this plugin
 1.  Config your client (probably Apollo) to include credentials in requests. Generally this is a setting under `httpLinkOptions` and look to set `credentials = "include"`.
 
