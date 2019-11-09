@@ -27,7 +27,7 @@ If enabled in the settings, WP GraphQL will have a new mutation available to all
 
 ```
 mutation {
-    logout(clientMutationId){
+    logout(clientMutationId = "anything unique"){
         clientMutationId
     }
 }
