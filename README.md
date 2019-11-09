@@ -1,6 +1,6 @@
 # WPGraphQL CORS
 
-The primary purpose of this plugin is to make the [WP GraphQL])https://github.com/wp-graphql/wp-graphql) plugin authentication "just work". It does this by allowing you set the CORS headers GraphQL will accept, which means that WordPress's default authentication headers will be accepted.
+The primary purpose of this plugin is to make the [WP GraphQL](https://github.com/wp-graphql/wp-graphql) plugin authentication "just work". It does this by allowing you set the CORS headers GraphQL will accept, which means that WordPress's default authentication headers will be accepted.
 
 This means that if a user is logged into WordPress, they will be able to see things like draft and private pages/posts via GraphQL.
 
@@ -23,7 +23,7 @@ Now if the browser is currently logged into WordPress, WP GraphQL will allow acc
 
 ### Logout Mutation
 
-If enabled in the settings, WP GraphQL will have a new mutation available to allow a user to logout from the frontend.
+If enabled in the settings, WP GraphQL will have a new mutation available to allow a user to logout. This is useful if you want to build a "logout" button on a sites frontend.
 
 ```
 mutation {
