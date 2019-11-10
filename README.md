@@ -1,6 +1,6 @@
 # WP GraphQL CORS
 
-The primary purpose of this plugin is to make the [WP GraphQL](https://github.com/wp-graphql/wp-graphql) plugin authentication "just work". It does this by allowing you set the CORS headers GraphQL will accept, which means that WordPress's default authentication headers will be accepted.
+The primary purpose of this plugin is to make the [WP GraphQL](https://github.com/wp-graphql/wp-graphql) plugin authentication "just work". It does this by allowing you set the CORS headers GraphQL will accept, which means that WordPress's default authentication cookies will be accepted.
 
 This means that if a user is logged into WordPress, they will be able to see things like draft and private pages/posts via GraphQL.
 
