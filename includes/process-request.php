@@ -53,7 +53,9 @@ function wpgraphql_cors_response_headers( $headers ) {
 		$headers['Access-Control-Allow-Origin'] = get_http_origin();
 	}
 
-	if ( ! empty( $headers['Access-Control-Allow-Origin'] ) && '*' !== $headers['Access-Control-Allow-Origin'] ) {
+	if ( ! empty( $headers['Access-Control-Allow-Origin'] )
+		&& '*' !== $headers['Access-Control-Allow-Origin']
+		&& get_option( 'wpgraphql_acao_credentials', false ) ) {
 		$headers['Access-Control-Allow-Credentials'] = 'true';
 	}
 	return $headers;

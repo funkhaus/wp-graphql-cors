@@ -24,12 +24,17 @@ class Main extends Section {
 	 */
 	public function __construct() {
 		$this->settings = array(
+			'wpgraphql_acao_credentials'      => array(
+				'type'        => 'Boolean',
+				'description' => __( 'If checked, site credentials including cookies will be passed in WPGraphQL requests', 'wp-graphql-cors' ),
+				'label'       => __( 'Send site credentials.', 'wp-graphql-cors' ),
+				'default'     => false,
+			),
 			'wpgraphql_acao_use_site_address' => array(
-				'type'              => 'Boolean',
-				'description'       => __( 'If checked, the current Site URL as set in <pre>Settings > General</pre> will be added to the Access-Control-Allow-Origin header. Extra domains can be added below.', 'wp-graphql-cors' ),
-				'label'             => __( 'Add Site Address to "Access-Control-Allow-Origin" header', 'wp-graphql-cors' ),
-				'default'           => true,
-				'sanitize_callback' => 'sanitize_text_field',
+				'type'        => 'Boolean',
+				'description' => __( 'If checked, the current Site URL as set in <pre>Settings > General</pre> will be added to the Access-Control-Allow-Origin header. Extra domains can be added below.', 'wp-graphql-cors' ),
+				'label'       => __( 'Add Site Address to "Access-Control-Allow-Origin" header', 'wp-graphql-cors' ),
+				'default'     => true,
 			),
 			'wpgraphql_acao'                  => array(
 				'type'              => 'String',
@@ -40,14 +45,20 @@ class Main extends Section {
 			),
 			'wpgraphql_cookie_filter'         => array(
 				'type'              => 'String',
-				'description'       => __( 'By default this plugin sends all cookies along in a response. You can specify specific cookie names here if you want to limit this.', 'wp-graphql-cors' ),
+				'description'       => __( 'By default this plugin sends all cookies along in a response. You can specify specific cookie names here if you want to limit this. "Send site credentials" must be enabled.', 'wp-graphql-cors' ),
 				'label'             => __( 'Filter WP GraphQL response cookies', 'wp-graphql-cors' ),
 				'default'           => '',
 				'sanitize_callback' => 'sanitize_text_field',
 			),
+			'wpgraphql_login_mutation'        => array(
+				'type'        => 'Boolean',
+				'description' => __( 'This extends WP GraphQL to have a login mutation. "Send site credentials" must be enabled.', 'wp-graphql-cors' ),
+				'label'       => __( 'Enable login mutation', 'wp-graphql-cors' ),
+				'default'     => false,
+			),
 			'wpgraphql_logout_mutation'       => array(
 				'type'        => 'Boolean',
-				'description' => __( 'This extends WP GraphQL to have a logout mutation. This is useful if you want add logout button on your frontend.', 'wp-graphql-cors' ),
+				'description' => __( 'This extends WP GraphQL to have a logout mutation. This is useful if you want add logout button on your frontend. "Send site credentials" must be enabled.', 'wp-graphql-cors' ),
 				'label'       => __( 'Enable logout mutation', 'wp-graphql-cors' ),
 				'default'     => false,
 			),
