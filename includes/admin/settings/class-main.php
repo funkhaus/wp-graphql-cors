@@ -24,18 +24,18 @@ class Main extends Section {
 	 */
 	public function __construct() {
 		$this->settings = array(
-			'wpgraphql_acao'                  => array(
-				'type'              => 'String',
-				'description'       => __( 'This can be a comma separated list of domains. Generally you want this to be the domain(s) the GraphQL request is coming from. Be sure to include the protocol, like so: http://example.com', 'wp-graphql-cors' ),
-				'label'             => __( 'Extend "Access-Control-Allow-Origin” header', 'wp-graphql-cors' ),
-				'default'           => '*',
-				'sanitize_callback' => 'sanitize_text_field',
-			),
 			'wpgraphql_acao_use_site_address' => array(
 				'type'              => 'Boolean',
 				'description'       => __( 'If checked, the current Site URL as set in <pre>Settings > General</pre> will be added to the Access-Control-Allow-Origin header. Extra domains can be added below.', 'wp-graphql-cors' ),
 				'label'             => __( 'Add Site Address to "Access-Control-Allow-Origin" header', 'wp-graphql-cors' ),
 				'default'           => true,
+				'sanitize_callback' => 'sanitize_text_field',
+			),
+			'wpgraphql_acao'                  => array(
+				'type'              => 'String',
+				'description'       => __( 'This can be a comma separated list of domains. Generally you want this to be the domain(s) the GraphQL request is coming from. Be sure to include the protocol, like so: http://example.com', 'wp-graphql-cors' ),
+				'label'             => __( 'Extend "Access-Control-Allow-Origin” header', 'wp-graphql-cors' ),
+				'default'           => '*',
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 			'wpgraphql_cookie_filter'         => array(
