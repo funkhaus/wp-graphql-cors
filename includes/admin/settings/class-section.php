@@ -51,21 +51,25 @@ abstract class Section {
 			case 'Text':
 				?>
 					<textarea name='<?php echo esc_html( $name ); ?>'><?php echo esc_textarea( $option_value ); ?></textarea>
+					<p class='description' id='<?php echo esc_html( "{$name}-description" ); ?>'><?php echo esc_html( $args['description'] ); ?></p>
 				<?php
 				break;
 			case 'Int':
 				?>
 					<input type='number' name='<?php echo esc_html( $name ); ?>' value='<?php echo esc_html( $option_value ); ?>'>
+					<p class='description' id='<?php echo esc_html( "{$name}-description" ); ?>'><?php echo esc_html( $args['description'] ); ?></p>
 				<?php
 				break;
 			case 'Boolean':
 				?>
 					<input type='checkbox' name='<?php echo esc_html( $name ); ?>' <?php echo (bool) $option_value ? 'checked' : ''; ?>>
+					<p class='description' id='<?php echo esc_html( "{$name}-description" ); ?>'><?php echo esc_html( $args['description'] ); ?></p>
 				<?php
 				break;
 			default:
 				?>
 					<input type='text' name='<?php echo esc_html( $name ); ?>' value='<?php echo esc_html( $option_value ); ?>'>
+					<p class='description' id='<?php echo esc_html( "{$name}-description" ); ?>'><?php echo esc_html( $args['description'] ); ?></p>
 				<?php
 		endswitch;
 	}
