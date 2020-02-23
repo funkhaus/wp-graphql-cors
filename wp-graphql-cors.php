@@ -5,7 +5,7 @@
  * and response cookie header.
  * Text Domain: wp-graphql-cors
  * Domain Path: /languages
- * Version: 0.0.1
+ * Version: 1.0
  *
  * @category WPGraphQL_Extension
  * @package  wp-graphql-cors
