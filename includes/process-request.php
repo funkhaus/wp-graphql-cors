@@ -35,29 +35,39 @@ function wpgraphql_cors_response_headers( $headers ) {
 	// Get site address as possible origin.
 	if ( ! empty( get_option( 'wpgraphql_acao_use_site_address' ) ) ) {
 		$site_address = get_option( 'home' );
+		
 		if ( ! empty( $site_address ) ) {
 			$possible_origins[] = $site_address;
 		}
 	}
-
+	
 	// Add all other possible origins.
 	$acao = get_option( 'wpgraphql_acao', '*' );
-	if ( '*' !== $acao ) {
+	if ( $acao !== '*' ) {
+		$acao = explode(PHP_EOL, $acao);
+		
 		$possible_origins = array_merge(
 			$possible_origins,
-			array_map( 'trim', explode( ',', $acao ) )
+			array_map('trim', $acao)
 		);
 	}
+	
+	// Remove empty orgins
+	$possible_origins = array_filter($possible_origins);
 
+	// Check if current request is in allowed origins
 	if ( in_array( get_http_origin(), $possible_origins, true ) ) {
 		$headers['Access-Control-Allow-Origin'] = get_http_origin();
 	}
-
-	if ( ! empty( $headers['Access-Control-Allow-Origin'] )
-		&& '*' !== $headers['Access-Control-Allow-Origin']
-		&& get_option( 'wpgraphql_acao_credentials', false ) ) {
+	
+	// If current request orgin is allowed, allow credentials (cookies)
+	if ( !empty($headers['Access-Control-Allow-Origin'])
+			&& $headers['Access-Control-Allow-Origin'] !== '*'
+			&& get_option( 'wpgraphql_acac', true ) ) 
+		{
 		$headers['Access-Control-Allow-Credentials'] = 'true';
 	}
+
 	return $headers;
 }
 

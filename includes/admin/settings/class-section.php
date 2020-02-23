@@ -50,7 +50,7 @@ abstract class Section {
 		switch ( $input_type ) :
 			case 'Text':
 				?>
-					<textarea name='<?php echo esc_html( $name ); ?>'><?php echo esc_textarea( $option_value ); ?></textarea>
+					<textarea cols="40" name='<?php echo esc_html( $name ); ?>'><?php echo esc_textarea( $option_value ); ?></textarea>
 					<p class='description' id='<?php echo esc_html( "{$name}-description" ); ?>'><?php echo esc_html( $args['description'] ); ?></p>
 				<?php
 				break;
