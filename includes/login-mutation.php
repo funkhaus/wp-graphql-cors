@@ -19,7 +19,7 @@ function wpgraphql_cors_login_mutation() {
 		 * Registers the logout mutation.
 		 */
 		register_graphql_mutation(
-			'login',
+			'loginWithCookies',
 			array(
 				'inputFields'         => array(
 					'login'      => array(
