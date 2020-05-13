@@ -12,6 +12,26 @@ namespace WPGraphQL\CORS\Settings;
  */
 abstract class Section {
 	/**
+	 * Holds Section ID
+	 * @var string ID
+	 */
+	const ID = '';
+
+	/**
+	 * Holds Section label
+	 * @var string LABEL
+	 */
+	const LABEL = '';
+
+	/**
+	 * Stores section settings.
+	 *
+	 * @var array $settings
+	 * @access private
+	 */
+	protected $settings;
+	
+	/**
 	 * Section constructor
 	 */
 	public function __construct() {
@@ -77,7 +97,14 @@ abstract class Section {
 	/**
 	 * Adds section to the WPGraphQL Settings page.
 	 */
-	abstract protected function add_section();
+	protected function add_section() {
+		add_settings_section(
+			static::ID,
+			static::LABEL,
+			array( get_class( $this ), 'section_callback' ),
+			'wpgraphql_cors'
+		);
+	}
 
 	/**
 	 * Renders section description.
@@ -87,10 +114,35 @@ abstract class Section {
 	/**
 	 * Register all settings.
 	 */
-	abstract protected function register_settings();
+	protected function register_settings() {
+		foreach ( $this->settings as $name => $args ) {
+			register_setting( 'wpgraphql_cors', $name, $args );
+		}
+	}
 
 	/**
 	 * Adds all settings to section.
 	 */
-	abstract protected function add_settings_fields();
+	protected function add_settings_fields() {
+		foreach ( $this->settings as $name => $args ) {
+			if ( is_array( $args ) ) {
+				add_settings_field(
+					$name,
+					! empty( $args['label'] ) ? $args['label'] : '',
+					array( __CLASS__, $name ),
+					'wpgraphql_cors',
+					static::ID,
+					$args
+				);
+			} else {
+				add_settings_field(
+					$name,
+					$args,
+					array( __CLASS__, $name ),
+					'wpgraphql_cors',
+					static::ID
+				);
+			}
+		}
+	}
 }

@@ -39,5 +39,7 @@ function wpgraphql_cors_page() {
  * Initializes the WPGraphQL Settings page.
  */
 function wpgraphql_cors_admin_page_init() {
-	new \WPGraphQL\CORS\Settings\Main();
+	new \WPGraphQL\CORS\Settings\Access();
+	new \WPGraphQL\CORS\Settings\Cookies();
+	new \WPGraphQL\CORS\Settings\Extra();
 }
