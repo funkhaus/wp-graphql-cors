@@ -32,9 +32,11 @@ function wpgraphql_cors_filter_cookies() {
 function wpgraphql_cors_response_headers( $headers ) {
 	$possible_origins = wpgraphql_cors_allowed_origins();
 
-	// Check if current request is in allowed origins.
+	// Set Allowed Control Allow Origin header.
 	if ( wpgraphql_cors_is_allowed_origin() ) {
 		$headers['Access-Control-Allow-Origin'] = get_http_origin();
+	} elseif ( empty ( get_option( 'wpgraphql_acao_block_unauthorized' ) ) ) {
+		$headers['Access-Control-Allow-Origin'] = '*';
 	} else {
 		$headers['Access-Control-Allow-Origin'] = $possible_origins[0];
 	}
@@ -86,10 +88,10 @@ function wpgraphql_cors_allowed_origins() {
 		$acao = explode( PHP_EOL, $acao );
 		
 		$possible_origins = array_merge( $possible_origins, array_map( 'trim', $acao ) );
+
+		// Remove any empty origins.
+		$possible_origins = array_filter( $possible_origins );
 	}
-	
-	// Remove empty origins.
-	$possible_origins = array_filter( $possible_origins );
 
 	return $possible_origins;
 }
