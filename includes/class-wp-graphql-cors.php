@@ -56,7 +56,9 @@ class WP_GraphQL_CORS {
 	private function includes() {
 		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/admin/admin.php';
 		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/admin/settings/class-section.php';
-		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/admin/settings/class-main.php';
+		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/admin/settings/class-access.php';
+		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/admin/settings/class-cookies.php';
+		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/admin/settings/class-extra.php';
 		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/process-request.php';
 		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/login-mutation.php';
 		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/logout-mutation.php';
@@ -69,6 +71,7 @@ class WP_GraphQL_CORS {
 		add_action( 'admin_init', 'wpgraphql_cors_admin_page_init' );
 		add_action( 'admin_menu', 'wpgraphql_cors_admin_menu' );
 		add_action( 'graphql_process_http_request_response', 'wpgraphql_cors_filter_cookies', 10 );
+		add_action( 'do_graphql_request', 'wpgraphql_cors_api_authentication', 10 );
 		add_action( 'graphql_register_types', 'wpgraphql_cors_login_mutation' );
 		add_action( 'graphql_register_types', 'wpgraphql_cors_logout_mutation' );
 	}

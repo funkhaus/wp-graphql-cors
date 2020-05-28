@@ -9,7 +9,7 @@
  *
  * @category WPGraphQL_Extension
  * @package  wp-graphql-cors
- * @author   Geoff Taylor <support@axistaylor.com>
+ * @author   Geoff Taylor <geoff@axistaylor.com>, Drew Baker <drew@funkhaus.us>
  * @license  http://opensource.org/licenses/gpl-3.0 GNU General Public License, version 3 (GPLv3)
  * @link     https://github.com/kidunot89/wp-graphql-cors
  */
@@ -17,8 +17,7 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-// Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+define( 'GRAPHQL_DEBUG', true );
 
 /**
  * Setups WPGraphQL CORS constants
