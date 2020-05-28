@@ -143,11 +143,9 @@ function wpgraphql_cors_is_allowed_origin() {
  * @throws UserError  Unauthorized request
  */
 function wpgraphql_cors_api_authentication( $query ) {
-	if ( trim( $query ) === trim( $introspection_query ) ) {
-		return;
-	}
-
 	if ( ! wpgraphql_cors_is_allowed_origin() && ! empty ( get_option( 'wpgraphql_acao_block_unauthorized' ) ) ) {
 		throw new \GraphQL\Error\UserError( __( 'You don\'t have the authority to access this API', 'wp-graphql-cors' ) );
 	}
+	
+	return $query;
 }
