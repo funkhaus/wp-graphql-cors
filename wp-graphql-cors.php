@@ -17,8 +17,6 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-define( 'GRAPHQL_DEBUG', true );
-
 /**
  * Setups WPGraphQL CORS constants
  */
