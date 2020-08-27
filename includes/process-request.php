@@ -46,6 +46,25 @@ function wpgraphql_cors_response_headers( $headers ) {
 		$headers['Access-Control-Allow-Credentials'] = 'true';
 	}
 
+	// If custom headers exist apply them
+	$custom_headers = array();
+	$acah = get_option( 'wpgraphql_acah' );
+	if ( $acah !== '' ) {
+		$acah = explode( PHP_EOL, $acah );
+		$custom_headers = array_merge( $custom_headers, array_map( 'trim', $acah ) );
+
+		// Remove any empty origins.
+		$custom_headers = array_filter( $custom_headers );
+	}
+	$access_control_allow_headers = apply_filters(
+		'graphql_access_control_allow_headers',
+		[
+			'Authorization',
+			'Content-Type',
+		]
+	);
+	$headers['Access-Control-Allow-Headers'] = implode( ', ', array_merge($access_control_allow_headers, $custom_headers) );
+
 	return $headers;
 }
 

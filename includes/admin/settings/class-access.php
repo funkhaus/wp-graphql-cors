@@ -34,14 +34,21 @@ class Access extends Section {
 				'label'       => __( 'Add Site Address to "Access-Control-Allow-Origin" header', 'wp-graphql-cors' ),
 				'default'     => true,
 			),
-			'wpgraphql_acao'                  => array(
+				'wpgraphql_acao'                  => array(
 				'type'              => 'Text',
 				'description'       => __( 'Authorized domains requests can originate from. One domain per line. Be sure to include the protocol, like so: http://example.com', 'wp-graphql-cors' ),
 				'label'             => __( 'Extend "Access-Control-Allow-Origin” header', 'wp-graphql-cors' ),
 				'default'           => '*',
 				'sanitize_callback' => 'sanitize_textarea_field',
-            ),
-            'wpgraphql_acao_block_unauthorized' => array(
+			),
+				'wpgraphql_acah' => array(
+				'type'              => 'Text',
+				'description'       => __( 'Custom headers fields. One field per line. Like so: X-Custom-Field', 'wp-graphql-cors' ),
+				'label'             => __( 'Extend "Access-Control-Allow-Headers”', 'wp-graphql-cors' ),
+				'default'           => '',
+				'sanitize_callback' => 'sanitize_textarea_field',
+			),
+				'wpgraphql_acao_block_unauthorized' => array(
 				'type'        => 'Boolean',
 				'description' => __( 'If checked, all GraphQL requests made from unauthorized domains will be blocked', 'wp-graphql-cors' ),
 				'label'       => __( 'Block unauthorized domains', 'wp-graphql-cors' ),
