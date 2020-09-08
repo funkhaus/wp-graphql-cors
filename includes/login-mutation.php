@@ -47,7 +47,7 @@ function wpgraphql_cors_login_mutation() {
 						},
 					),
 				),
-				'mutateAndGetPayload' => function() {
+				'mutateAndGetPayload' => function($input) {
 					// Prepare credentials.
 					$credential_keys = array(
 						'login'      => 'user_login',
