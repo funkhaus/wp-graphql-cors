@@ -46,7 +46,7 @@ If enabled in the settings, WP GraphQL will have a new mutation available to all
 
 ```
 mutation {
-	login(input: {clientMutationId: "", login: "", password: ""}) {
+	loginWithCookies(input: {clientMutationId: "", login: "", password: ""}) {
         clientMutationId
         status
     }
