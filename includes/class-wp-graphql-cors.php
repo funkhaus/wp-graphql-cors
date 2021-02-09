@@ -62,6 +62,9 @@ class WP_GraphQL_CORS {
 		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/process-request.php';
 		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/login-mutation.php';
 		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/logout-mutation.php';
+		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/signon.php';
+		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/set-auth-cookie.php';
+		require_once WPGRAPHQL_CORS_PLUGIN_DIR . '/includes/setcookie-same-site.php';
 	}
 
 	/**

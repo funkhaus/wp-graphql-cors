@@ -62,7 +62,7 @@ function wpgraphql_cors_login_mutation() {
 					}
 
 					// Authenticate User.
-					$user = wp_signon( $credentials, true );
+					$user = wpgraphql_cors_signon( $credentials, true );
 
 					if ( is_wp_error( $user ) ) {
 						throw new UserError( ! empty( $user->get_error_code() ) ? $user->get_error_code() : 'invalid login' );
