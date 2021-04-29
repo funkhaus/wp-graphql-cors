@@ -138,8 +138,6 @@ function wpgraphql_cors_is_allowed_origin() {
         }
     }
 
-	wp_send_json( $possible_origins );
-
     return false;
 }
 
@@ -151,7 +149,7 @@ function wpgraphql_cors_is_allowed_origin() {
  * @throws UserError  Unauthorized request
  */
 function wpgraphql_cors_api_authentication( $query ) {
-    if ( ! wpgraphql_cors_is_allowed_origin() && ! empty ( get_graphql_setting( 'acao_block_unauthorized' ) ) ) {
+    if ( ! wpgraphql_cors_is_allowed_origin() && ! 'on' === get_graphql_setting( 'acao_block_unauthorized', 'off', 'graphql_cors_settings' ) ) {
         throw new \GraphQL\Error\UserError( __( 'You don\'t have the authority to access this API', 'wp-graphql-cors' ) );
     }
 
