@@ -14,7 +14,7 @@ use WPGraphQL\AppContext;
  * Register logout mutation for killing a user's session and all corresponding cookies.
  */
 function wpgraphql_cors_logout_mutation() {
-	if ( 'on' === get_option( 'wpgraphql_logout_mutation', 'off' ) ) {
+	if ( 'on' === get_graphql_setting( 'logout_mutation', 'off', 'graphql_cors_settings' ) ) {
 		/**
 		 * Registers the logout mutation.
 		 */

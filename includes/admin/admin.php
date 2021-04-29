@@ -6,40 +6,17 @@
  * @package wp-graphql-cors
  */
 
-/**
- * Registers WPGraphQL CORS settings page to WP Settings menu.
- */
-function wpgraphql_cors_admin_menu() {
-	add_options_page(
-		'WPGraphQL CORS',
-		'WPGraphQL CORS',
-		'manage_options',
-		'wpgraphql-settings',
-		'wpgraphql_cors_page'
+function wpgraphql_cors_settings( \WPGraphQL\Admin\Settings\Settings $manager ) {
+	$manager->settings_api->register_section(
+		'graphql_cors_settings',
+		[ 'title' => __( 'CORS Settings', 'wp-graphql-cors' ) ]
 	);
-}
 
-/**
- * Renders WPGraphQL CORS settings page.
- */
-function wpgraphql_cors_page() {
-	?>
-	<form action='options.php' method='post'>
-		<h2>WPGraphQL CORS</h2>
-		<?php
-			settings_fields( 'wpgraphql_cors' );
-			do_settings_sections( 'wpgraphql_cors' );
-			submit_button();
-		?>
-	</form>
-	<?php
-}
-
-/**
- * Initializes the WPGraphQL Settings page.
- */
-function wpgraphql_cors_admin_page_init() {
-	new \WPGraphQL\CORS\Settings\Access();
-	new \WPGraphQL\CORS\Settings\Cookies();
-	new \WPGraphQL\CORS\Settings\Extra();
+	$manager->settings_api->register_fields(
+		'graphql_cors_settings',
+		array_merge(
+			\WPGraphQL\CORS\Settings\Access::get_fields(),
+			\WPGraphQL\CORS\Settings\Cookies::get_fields(),
+		)
+	);
 }
