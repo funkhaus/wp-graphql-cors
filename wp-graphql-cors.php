@@ -5,7 +5,7 @@
  * and response cookie header.
  * Text Domain: wp-graphql-cors
  * Domain Path: /languages
- * Version: 1.1.1
+ * Version: 2.0
  *
  * @category WPGraphQL_Extension
  * @package  wp-graphql-cors
@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 function wpgraphql_cors_constants() {
 	// Plugin version.
 	if ( ! defined( 'WPGRAPHQL_CORS_VERSION' ) ) {
-		define( 'WPGRAPHQL_CORS_VERSION', '0.0.1' );
+		define( 'WPGRAPHQL_CORS_VERSION', '1.1.1' );
 	}
 	// Plugin Folder Path.
 	if ( ! defined( 'WPGRAPHQL_CORS_PLUGIN_DIR' ) ) {
@@ -42,7 +42,6 @@ function wpgraphql_cors_constants() {
 		define( 'WPGRAPHQL_CORS_AUTOLOAD', true );
 	}
 }
-
 
 /**
  * Initializes WPGraphQL WooCommerce
