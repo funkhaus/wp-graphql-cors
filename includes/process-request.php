@@ -155,3 +155,7 @@ function wpgraphql_cors_api_authentication( $query ) {
 
     return $query;
 }
+
+function wpgraphql_cors_shutdown() {
+	do_action( 'shutdown' );
+}

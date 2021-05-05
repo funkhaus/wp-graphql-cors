@@ -75,6 +75,7 @@ class WP_GraphQL_CORS {
         add_action( 'do_graphql_request', 'wpgraphql_cors_api_authentication', 10 );
         add_action( 'graphql_register_types', 'wpgraphql_cors_login_mutation' );
         add_action( 'graphql_register_types', 'wpgraphql_cors_logout_mutation' );
+        add_action( 'graphql_return_response', 'wpgraphql_cors_shutdown' );
     }
 
     /**
