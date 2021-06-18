@@ -115,7 +115,9 @@ function wpgraphql_cors_is_allowed_origin() {
     $request_origin = null;
     if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
         $request_origin = wp_unslash( $_SERVER['HTTP_REFERER'] );
-    }
+    } elseif ( isset( $_SERVER['HTTP_ORIGIN'] ) ) {
+		$request_origin = wp_unslash( $_SERVER['HTTP_ORIGIN'] );
+	}
 
     /**
      * Bail if no proper "Host" header provided. This is typical of
