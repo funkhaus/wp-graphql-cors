@@ -35,7 +35,7 @@ function wpgraphql_cors_response_headers( $headers ) {
     // Set Allowed Control Allow Origin header.
     if ( wpgraphql_cors_is_allowed_origin() ) {
         $headers['Access-Control-Allow-Origin'] = get_http_origin();
-    } elseif ( 'on' === get_graphql_setting( 'acao_block_unauthorized', 'off', 'graphql_cors_settings' ) ) {
+    } elseif ( 'on' !== get_graphql_setting( 'acao_block_unauthorized', 'off', 'graphql_cors_settings' ) ) {
         $headers['Access-Control-Allow-Origin'] = '*';
     } else {
         $headers['Access-Control-Allow-Origin'] = $possible_origins[0];
@@ -115,7 +115,9 @@ function wpgraphql_cors_is_allowed_origin() {
     $request_origin = null;
     if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
         $request_origin = wp_unslash( $_SERVER['HTTP_REFERER'] );
-    }
+    } elseif ( isset( $_SERVER['HTTP_ORIGIN'] ) ) {
+		$request_origin = wp_unslash( $_SERVER['HTTP_ORIGIN'] );
+	}
 
     /**
      * Bail if no proper "Host" header provided. This is typical of
