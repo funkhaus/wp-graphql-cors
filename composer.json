@@ -1,0 +1,12 @@
+{
+    "name": "funkhaus/wp-graphql-cors",
+    "type": "wordpress-plugin",
+    "license": "GNU General Public License v3.0",
+    "authors": [
+        {
+            "name": "Funkhaus",
+            "email": "whatsup@funkhaus.us"
+        }
+    ],
+    "require": {}
+}
