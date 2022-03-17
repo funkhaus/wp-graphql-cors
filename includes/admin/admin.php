@@ -16,7 +16,7 @@ function wpgraphql_cors_settings( \WPGraphQL\Admin\Settings\Settings $manager ) 
 		'graphql_cors_settings',
 		array_merge(
 			\WPGraphQL\CORS\Settings\Access::get_fields(),
-			\WPGraphQL\CORS\Settings\Cookies::get_fields(),
+			\WPGraphQL\CORS\Settings\Cookies::get_fields()
 		)
 	);
 }
