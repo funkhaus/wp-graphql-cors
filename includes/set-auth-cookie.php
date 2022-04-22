@@ -59,13 +59,15 @@ function wpgraphql_cors_set_auth_cookie( $user_id, $remember = false, $secure = 
 	do_action( 'set_logged_in_cookie', $logged_in_cookie, $expire, $expiration, $user_id, 'logged_in', $token );
 
 	if ( ! apply_filters( 'send_auth_cookies', true ) ) {
-			return;
+			return false;
 	}
 
-	wpgraphql_cors_setcookie_same_site( $auth_cookie_name, $auth_cookie, $expire, PLUGINS_COOKIE_PATH, COOKIE_DOMAIN, $secure, true );
-	wpgraphql_cors_setcookie_same_site( $auth_cookie_name, $auth_cookie, $expire, ADMIN_COOKIE_PATH, COOKIE_DOMAIN, $secure, true );
-	wpgraphql_cors_setcookie_same_site( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure_logged_in_cookie, true );
+    $samesite = get_graphql_setting( 'samesite_mode', 'None', 'graphql_cors_settings' );
+
+	wpgraphql_cors_setcookie_same_site( $auth_cookie_name, $auth_cookie, $expire, PLUGINS_COOKIE_PATH, COOKIE_DOMAIN, $secure_logged_in_cookie, $secure_logged_in_cookie, $samesite );
+	wpgraphql_cors_setcookie_same_site( $auth_cookie_name, $auth_cookie, $expire, ADMIN_COOKIE_PATH, COOKIE_DOMAIN, $secure_logged_in_cookie, $secure_logged_in_cookie, $samesite );
+	wpgraphql_cors_setcookie_same_site( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure_logged_in_cookie, true, $samesite );
 	if ( COOKIEPATH !== SITECOOKIEPATH ) {
-			wpgraphql_cors_setcookie_same_site( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, SITECOOKIEPATH, COOKIE_DOMAIN, $secure_logged_in_cookie, true );
+			wpgraphql_cors_setcookie_same_site( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, SITECOOKIEPATH, COOKIE_DOMAIN, $secure_logged_in_cookie, true, $samesite );
 	}
 }

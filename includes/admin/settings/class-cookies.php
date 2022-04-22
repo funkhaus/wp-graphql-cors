@@ -48,6 +48,18 @@ class Cookies extends Section {
                 'label'   => __( 'Enable logout mutation', 'wp-graphql-cors' ),
                 'default' => 'off',
             ),
+            array(
+                'name'    => 'samesite_mode',
+                'type'    => 'select',
+                'desc'    => __( 'This specifies the samesite mode for the cookie generated when the login mutation is called.', 'wp-graphql-cors' ),
+                'label'   => __( 'Samesite cookie mode', 'wp-graphql-cors' ),
+                'options' => array(
+                    'None'      => 'None',
+                    'Lax'       => 'LAX',
+                    'Strict'    => 'Strict'
+                ),
+                'default' => 'none'
+            )
         );
     }
 }
