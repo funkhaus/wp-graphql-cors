@@ -32,13 +32,17 @@ function wpgraphql_cors_filter_cookies() {
 function wpgraphql_cors_response_headers( $headers ) {
     $possible_origins = wpgraphql_cors_allowed_origins();
 
+    $request_origin = $_SERVER['HTTP_ORIGIN'];
+
+    $request_origin_allowed = in_array($request_origin, $possible_origins);
+
     // Set Allowed Control Allow Origin header.
     if ( wpgraphql_cors_is_allowed_origin() ) {
         $headers['Access-Control-Allow-Origin'] = get_http_origin();
     } elseif ( 'on' !== get_graphql_setting( 'acao_block_unauthorized', 'off', 'graphql_cors_settings' ) ) {
-        $headers['Access-Control-Allow-Origin'] = '*';
+        $headers['Access-Control-Allow-Origin'] = $request_origin_allowed ? $request_origin : '*';
     } else {
-        $headers['Access-Control-Allow-Origin'] = $possible_origins[0];
+        $headers['Access-Control-Allow-Origin'] = $request_origin_allowed ? $request_origin : $possible_origins[0];
     }
 
     // If current request origin is allowed, allow credentials (cookies).
