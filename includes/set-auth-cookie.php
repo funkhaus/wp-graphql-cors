@@ -18,9 +18,6 @@
  *                              string which means the value of `is_ssl()` will be used.
  */
 function wpgraphql_cors_set_auth_cookie( $user_id, $remember = false, $secure = '' ) {
-
-    error_log("secure cookie as wpgraphql_cors_set_auth_cookie start argument is: " . ($secure ? 'true' : 'false'));
-
 	if ( $remember ) {
 			$expiration = time() + apply_filters( 'auth_cookie_expiration', 14 * DAY_IN_SECONDS, $user_id, $remember );
 
@@ -59,7 +56,7 @@ function wpgraphql_cors_set_auth_cookie( $user_id, $remember = false, $secure = 
 	do_action( 'set_logged_in_cookie', $logged_in_cookie, $expire, $expiration, $user_id, 'logged_in', $token );
 
 	if ( ! apply_filters( 'send_auth_cookies', true ) ) {
-			return false;
+			return;
 	}
 
     $samesite = get_graphql_setting( 'samesite_mode', 'None', 'graphql_cors_settings' );
@@ -68,8 +65,8 @@ function wpgraphql_cors_set_auth_cookie( $user_id, $remember = false, $secure = 
 
 	wpgraphql_cors_setcookie_same_site( $auth_cookie_name, $auth_cookie, $expire, PLUGINS_COOKIE_PATH, COOKIE_DOMAIN, $secure, $samesite );
 	wpgraphql_cors_setcookie_same_site( $auth_cookie_name, $auth_cookie, $expire, ADMIN_COOKIE_PATH, COOKIE_DOMAIN, $secure, $samesite );
-	wpgraphql_cors_setcookie_same_site( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure, $samesite );
+	wpgraphql_cors_setcookie_same_site( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure_logged_in_cookie, $samesite );
 	if ( COOKIEPATH !== SITECOOKIEPATH ) {
-			wpgraphql_cors_setcookie_same_site( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, SITECOOKIEPATH, COOKIE_DOMAIN, $secure, $samesite );
+			wpgraphql_cors_setcookie_same_site( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, SITECOOKIEPATH, COOKIE_DOMAIN, $secure_logged_in_cookie, $samesite );
 	}
 }
