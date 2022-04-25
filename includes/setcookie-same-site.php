@@ -16,7 +16,7 @@
  * @param string $path The path on the server in which the cookie will be available on.
  * @param string $domain The (sub)domain that the cookie is available to.
  * @param bool   $secure Indicates that the cookie should only be transmitted over a secure HTTPS connection from the client.
- * @param string $samesite The samesite mode as configured in the admin settings. Defaults to 'None'.
+ * @param string $samesite The samesite mode for the cookie from the admin settings. Defaults to 'None'.
  * @return void
  */
 function wpgraphql_cors_setcookie_same_site( $name, $value, $expires, $path, $domain, $secure, $samesite ) {

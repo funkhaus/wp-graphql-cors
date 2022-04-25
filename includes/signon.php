@@ -47,8 +47,6 @@ function wpgraphql_cors_signon( $credentials = array() ) {
 
 	$secure_cookie = apply_filters( 'secure_signon_cookie', $secure_cookie, $credentials );
 
-    error_log("secure cookie returned by secure_signon_cookie filter is: " . ($secure_cookie ? 'true' : 'false'));
-
 	global $auth_secure_cookie;
 	$auth_secure_cookie = $secure_cookie; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 

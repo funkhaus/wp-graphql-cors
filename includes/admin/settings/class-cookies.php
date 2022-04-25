@@ -58,8 +58,16 @@ class Cookies extends Section {
                     'Lax'       => 'LAX',
                     'Strict'    => 'Strict'
                 ),
-                'default' => 'none'
-            )
+                'default' => 'None'
+            ),
+            array(
+                'name'              => 'cookie_domain',
+                'type'              => 'text',
+                'desc'              => __( 'Blank by default. To share across subdomains, use your root domain prefixed with a period (e.g. .mydomain.com).', 'wp-graphql-cors' ),
+                'label'             => __( 'Cookie domain', 'wp-graphql-cors' ),
+                'default'           => '',
+                'sanitize_callback' => 'sanitize_text_field',
+            ),
         );
     }
 }
