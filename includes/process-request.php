@@ -31,18 +31,17 @@ function wpgraphql_cors_filter_cookies() {
  */
 function wpgraphql_cors_response_headers( $headers ) {
     $possible_origins = wpgraphql_cors_allowed_origins();
+    $allowed_origin = wpgraphql_cors_get_allowed_origin($possible_origins);
 
-    $request_origin = $_SERVER['HTTP_ORIGIN'];
-
-    $request_origin_allowed = in_array($request_origin, $possible_origins);
-
-    // Set Allowed Control Allow Origin header.
-    if ( wpgraphql_cors_is_allowed_origin() ) {
-        $headers['Access-Control-Allow-Origin'] = get_http_origin();
+    if ( $allowed_origin != null ) {
+        // Origin found in allowed list. set to the same one that was requested
+        $headers['Access-Control-Allow-Origin'] = $allowed_origin;
     } elseif ( 'on' !== get_graphql_setting( 'acao_block_unauthorized', 'off', 'graphql_cors_settings' ) ) {
-        $headers['Access-Control-Allow-Origin'] = $request_origin_allowed ? $request_origin : '*';
+        // Origin not found in allow list and must be authorized. Return first allowed orgin.
+        $headers['Access-Control-Allow-Origin'] = $possible_origins[0];
     } else {
-        $headers['Access-Control-Allow-Origin'] = $request_origin_allowed ? $request_origin : $possible_origins[0];
+        // Origin is not allowed but doesn't have to be authorized, return wildcard.
+        $headers['Access-Control-Allow-Origin'] = '*';
     }
 
     // If current request origin is allowed, allow credentials (cookies).
@@ -108,12 +107,11 @@ function wpgraphql_cors_allowed_origins() {
 
 /**
  * Checks if the current request domain is allowed to make a request against
- * the WPGraphQL API, if
+ * the WPGraphQL API, if allowed, return the origin, otherwise null.
  *
- * @return string|bool
+ * @return string|null
  */
-function wpgraphql_cors_is_allowed_origin() {
-    $possible_origins = wpgraphql_cors_allowed_origins();
+function wpgraphql_cors_get_allowed_origin($possible_origins) {
 
     // Retrieve request origin.
     $request_origin = null;
@@ -128,7 +126,7 @@ function wpgraphql_cors_is_allowed_origin() {
      * requests made by tools like Postman.
      */
     if ( empty( $request_origin ) ) {
-        return false;
+        return null;
     }
 
     // Check each possible origin for a match to the request origin.
@@ -140,11 +138,11 @@ function wpgraphql_cors_is_allowed_origin() {
 
         // If match return true and end loop.
         if ( substr( $haystack, 0, $len ) === $needle ) {
-            return true;
+            return $allowed_origin;
         }
     }
 
-    return false;
+    return null;
 }
 
 /**
@@ -155,7 +153,10 @@ function wpgraphql_cors_is_allowed_origin() {
  * @throws UserError  Unauthorized request
  */
 function wpgraphql_cors_api_authentication( $query ) {
-    if ( ! wpgraphql_cors_is_allowed_origin() && ! 'on' === get_graphql_setting( 'acao_block_unauthorized', 'off', 'graphql_cors_settings' ) ) {
+    $possible_origins = wpgraphql_cors_allowed_origins();
+    $allowed_origin = wpgraphql_cors_get_allowed_origin($possible_origins);
+
+    if ( $allowed_origin == null && ! 'on' === get_graphql_setting( 'acao_block_unauthorized', 'off', 'graphql_cors_settings' ) ) {
         throw new \GraphQL\Error\UserError( __( 'You don\'t have the authority to access this API', 'wp-graphql-cors' ) );
     }
 
