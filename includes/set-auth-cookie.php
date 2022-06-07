@@ -16,9 +16,8 @@
  * @param bool        $remember Whether to remember the user.
  * @param bool|string $secure   Whether the auth cookie should only be sent over HTTPS. Default is an empty
  *                              string which means the value of `is_ssl()` will be used.
- * @param string      $token    Optional. User's session token to use for this cookie.
  */
-function wpgraphql_cors_set_auth_cookie( $user_id, $remember = false, $secure = '', $token = '' ) {
+function wpgraphql_cors_set_auth_cookie( $user_id, $remember = false, $secure = '' ) {
 	if ( $remember ) {
 			$expiration = time() + apply_filters( 'auth_cookie_expiration', 14 * DAY_IN_SECONDS, $user_id, $remember );
 
@@ -46,10 +45,8 @@ function wpgraphql_cors_set_auth_cookie( $user_id, $remember = false, $secure = 
 			$scheme           = 'auth';
 	}
 
-	if ( '' === $token ) {
-			$manager = WP_Session_Tokens::get_instance( $user_id );
-			$token   = $manager->create( $expiration );
-	}
+    $manager = WP_Session_Tokens::get_instance( $user_id );
+    $token   = $manager->create( $expiration );
 
 	$auth_cookie      = wp_generate_auth_cookie( $user_id, $expiration, $scheme, $token );
 	$logged_in_cookie = wp_generate_auth_cookie( $user_id, $expiration, 'logged_in', $token );
@@ -62,10 +59,14 @@ function wpgraphql_cors_set_auth_cookie( $user_id, $remember = false, $secure = 
 			return;
 	}
 
-	wpgraphql_cors_setcookie_same_site( $auth_cookie_name, $auth_cookie, $expire, PLUGINS_COOKIE_PATH, COOKIE_DOMAIN, $secure, true );
-	wpgraphql_cors_setcookie_same_site( $auth_cookie_name, $auth_cookie, $expire, ADMIN_COOKIE_PATH, COOKIE_DOMAIN, $secure, true );
-	wpgraphql_cors_setcookie_same_site( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure_logged_in_cookie, true );
+    $samesite = get_graphql_setting( 'samesite_mode', 'None', 'graphql_cors_settings' );
+
+    $cookie_domain = get_graphql_setting( 'cookie_domain', '', 'graphql_cors_settings' );
+    
+	wpgraphql_cors_setcookie_same_site( $auth_cookie_name, $auth_cookie, $expire, PLUGINS_COOKIE_PATH, $cookie_domain, $secure, $samesite );
+	wpgraphql_cors_setcookie_same_site( $auth_cookie_name, $auth_cookie, $expire, ADMIN_COOKIE_PATH, $cookie_domain, $secure, $samesite );
+	wpgraphql_cors_setcookie_same_site( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, COOKIEPATH, $cookie_domain, $secure_logged_in_cookie, $samesite );
 	if ( COOKIEPATH !== SITECOOKIEPATH ) {
-			wpgraphql_cors_setcookie_same_site( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, SITECOOKIEPATH, COOKIE_DOMAIN, $secure_logged_in_cookie, true );
+			wpgraphql_cors_setcookie_same_site( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, SITECOOKIEPATH, $cookie_domain, $secure_logged_in_cookie, $samesite );
 	}
 }

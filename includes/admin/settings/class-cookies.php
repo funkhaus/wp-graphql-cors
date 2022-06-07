@@ -48,6 +48,26 @@ class Cookies extends Section {
                 'label'   => __( 'Enable logout mutation', 'wp-graphql-cors' ),
                 'default' => 'off',
             ),
+            array(
+                'name'    => 'samesite_mode',
+                'type'    => 'select',
+                'desc'    => __( 'This specifies the samesite mode for the cookie generated when the login mutation is called.', 'wp-graphql-cors' ),
+                'label'   => __( 'Samesite cookie mode', 'wp-graphql-cors' ),
+                'options' => array(
+                    'None'      => 'None',
+                    'Lax'       => 'LAX',
+                    'Strict'    => 'Strict'
+                ),
+                'default' => 'None'
+            ),
+            array(
+                'name'              => 'cookie_domain',
+                'type'              => 'text',
+                'desc'              => __( 'Blank by default. To share across subdomains, use your root domain prefixed with a period (e.g. .mydomain.com).', 'wp-graphql-cors' ),
+                'label'             => __( 'Cookie domain', 'wp-graphql-cors' ),
+                'default'           => '',
+                'sanitize_callback' => 'sanitize_text_field',
+            ),
         );
     }
 }

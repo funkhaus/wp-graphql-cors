@@ -20,7 +20,7 @@
  * @param string|bool $secure_cookie Optional. Whether to use secure cookie.
  * @return WP_User|WP_Error WP_User on success, WP_Error on failure.
  */
-function wpgraphql_cors_signon( $credentials = array(), $secure_cookie = '' ) {
+function wpgraphql_cors_signon( $credentials = array() ) {
 	if ( empty( $credentials ) ) {
 			$credentials = array();
 
@@ -43,11 +43,10 @@ function wpgraphql_cors_signon( $credentials = array(), $secure_cookie = '' ) {
 
 	do_action_ref_array( 'wp_authenticate', array( &$credentials['user_login'], &$credentials['user_password'] ) );
 
-	if ( '' === $secure_cookie ) {
-			$secure_cookie = is_ssl();
-	}
+    $secure_cookie = is_ssl();
 
 	$secure_cookie = apply_filters( 'secure_signon_cookie', $secure_cookie, $credentials );
+
 	global $auth_secure_cookie;
 	$auth_secure_cookie = $secure_cookie; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
