@@ -54,7 +54,7 @@ function wpgraphql_cors_response_headers( $headers ) {
 
     // If custom headers exist apply them
     $custom_headers = array();
-    $acah = get_graphql_setting( 'acah', 'graphql_cors_settings' );
+    $acah = get_graphql_setting( 'acah', '', 'graphql_cors_settings' );
     if ( $acah !== '' ) {
         $acah = explode( PHP_EOL, $acah );
         $custom_headers = array_merge( $custom_headers, array_map( 'trim', $acah ) );
